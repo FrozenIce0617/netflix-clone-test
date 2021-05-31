@@ -1,12 +1,15 @@
 import Routes from "./routes";
+import { AppProvider } from "./context";
 import Theme from "./themes";
 
 function App() {
   return (
-    <div className="App">
+    <AppProvider>
       <Theme />
-      <Routes />
-    </div>
+      <div className="App">
+        <Routes />
+      </div>
+    </AppProvider>
   );
 }
 
