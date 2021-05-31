@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { TMDB_BASE_IMG_URL } from "../../config";
 import { Link, Redirect } from "react-router-dom";
 import { useApp } from "../../context";
+import RatingStar from "../../components/RatingStar";
 
 const S = {};
 
@@ -26,6 +27,7 @@ S.keyFrameAnimNarrow = keyframes`
 `;
 
 S.Title = styled.h1`
+  padding-left: 1em;
   color: #fff;
   font-size: 4rem;
   font-weight: 600;
@@ -99,6 +101,10 @@ export default function Detail({ match: { params } }) {
           <>
             <S.Title>{movie.title || movie.name}</S.Title>
             <S.Paragraph>{movie.overview}</S.Paragraph>
+            <RatingStar
+              rating={movie.vote_average}
+              vote_count={movie.vote_count}
+            />
           </>
         </>
       ) : (
