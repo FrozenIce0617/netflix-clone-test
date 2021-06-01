@@ -20,3 +20,20 @@ This is a simple Netflix Clone app. I tried to build this app from scratch witho
 - react 17.0.2
 - react-router 5.2.0
 - styled-components 5.3.0
+
+## How to use
+1. Clone the repo in your local
+    ``` 
+    git clone https://github.com/FrozenIce0617/netflix-clone-test.git
+    ```
+
+2. This project is bootstrapped with `create-react-app`, so nothing to do any more.
+   Just run 
+    ```
+    yarn install
+    ```
+    ```
+    yarn start
+    ```
+
+## [Demo](https://netflix-react-test-07.netlify.app/)
