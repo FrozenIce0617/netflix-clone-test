@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { TMDB_BASE_IMG_URL } from "../../config";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useApp } from "../../context";
 import RatingStar from "../../components/RatingStar";
 
@@ -45,6 +45,9 @@ S.Paragraph = styled.p`
   color: #fff;
   font-size: 1.6rem;
   width: 100%;
+  a {
+    color: #fff;
+  }
 `;
 
 S.DetailHead = styled.div`
@@ -83,32 +86,35 @@ S.GoBack = styled.div`
 `;
 
 export default function Detail({ match: { params } }) {
+  const [media, setMedia] = React.useState({});
   const [appState] = useApp();
   const { getMovieById, movies } = appState;
 
-  let movie = movies.find((item) => item.id.toString() === params?.id);
-  if (!movie) movie = getMovieById(params?.id);
+  React.useEffect(() => {
+    const movie = movies.find((item) => item.id?.toString() === params?.id);
+    movie ? setMedia(movie) : getMovieById(params.id);
+  }, [movies, params, getMovieById]);
 
   return (
     <>
-      {movie ? (
+      {media.id ? (
         <>
-          <S.DetailHead background={movie.poster_path || movie.backdrop_path}>
+          <S.DetailHead background={media?.poster_path || media?.backdrop_path}>
             <S.GoBack>
               <Link to="/"> Go to Home</Link>
             </S.GoBack>
           </S.DetailHead>
-          <>
-            <S.Title>{movie.title || movie.name}</S.Title>
-            <S.Paragraph>{movie.overview}</S.Paragraph>
-            <RatingStar
-              rating={movie.vote_average}
-              vote_count={movie.vote_count}
-            />
-          </>
+          <S.Title>{media.title || media.name}</S.Title>
+          <S.Paragraph>{media.overview}</S.Paragraph>
+          <RatingStar
+            rating={media.vote_average}
+            vote_count={media.vote_count}
+          />
         </>
       ) : (
-        <Redirect to="/" />
+        <S.Paragraph>
+          There is no movie with Id {params.id}.<Link to="/"> Click here to go home</Link>
+        </S.Paragraph>
       )}
     </>
   );

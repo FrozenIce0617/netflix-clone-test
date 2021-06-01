@@ -21,15 +21,14 @@ function useApp() {
   };
 
   const getMovieById = (id) => {
-    return fetch(
-      `${TMDB_BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}&language=en-US`
-    )
+    fetch(`${TMDB_BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}&language=en-US`)
       .then((result) => result.json())
       .then((response) => {
-        appDispatch({
-          type: "ADD_MOVIE",
-          movie: response,
-        });
+        if (response.id)
+          appDispatch({
+            type: "ADD_MOVIE",
+            movie: response,
+          });
       });
   };
 
