@@ -25,16 +25,14 @@ export default function Home() {
 
   useEffect(() => {
     movies.length < 2 && updateMovies();
-  }, [movies]);
+  }, [movies, updateMovies]);
 
   return (
     <>
       <S.Heading>Popular Movies</S.Heading>
       <S.Wrapper>
         {movies.map((movie) => (
-          <Link key={movie.id} to={`/movie/${movie.id}`}>
-            <ThumbsCard key={movie.id} {...{ movie }} />
-          </Link>
+          <ThumbsCard key={movie.id} {...{ movie }} />
         ))}
       </S.Wrapper>
     </>

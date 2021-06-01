@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { TMDB_BASE_IMG_URL } from '../../config'
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { TMDB_BASE_IMG_URL } from "../../config";
 
-const S = {}
+const S = {};
 
 S.Card = styled(Link)`
   overflow: hidden;
@@ -28,6 +28,16 @@ S.Card = styled(Link)`
       transform: translateY(0);
     }
   }
+
+  @media (max-width: 700px) {
+    width: 40vw;
+    height: 60vw;
+  }
+
+  @media (max-width: 346px) {
+    width: 80vw;
+    height: 120vw;
+  }
 `;
 
 S.Title = styled.p`
@@ -45,15 +55,15 @@ S.Title = styled.p`
 `;
 
 const ThumbsCard = ({ movie }) => {
-    return (
-        <S.Card
-          to={`/movie/${movie.id}`}
-          name={movie.original_title}
-          bg={movie.poster_path || movie.backdrop_path}
-        >
-          <S.Title>{movie.original_title}</S.Title>
-        </S.Card>
-      );
+  return (
+    <S.Card
+      to={`/movie/${movie.id}`}
+      name={movie.original_title}
+      bg={movie.poster_path || movie.backdrop_path}
+    >
+      <S.Title>{movie.original_title}</S.Title>
+    </S.Card>
+  );
 };
 
 export default ThumbsCard;
