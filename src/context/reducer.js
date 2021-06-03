@@ -3,11 +3,12 @@ export const initialState = {
 };
 
 function reducer(state = initialState, action = {}) {
+  console.log(action)
   switch (action.type) {
     case "UPDATE_MOVIE_LIST": {
       return {
         ...state,
-        movies: action.movies,
+        movies: state.movies.concat(action.movies),
       };
     }
 
