@@ -88,16 +88,20 @@ S.GoBack = styled.div`
 export default function Detail({ match: { params } }) {
   const [media, setMedia] = React.useState({});
   const [appState] = useApp();
-  const { getMovieById, movies } = appState;
+  const { getMovieById, movies, isLoading } = appState;
 
   React.useEffect(() => {
     const movie = movies.find((item) => item.id?.toString() === params?.id);
-    movie ? setMedia(movie) : getMovieById(params.id);
-  }, [movies, params, getMovieById]);
+    !movie && !isLoading ? getMovieById(params.id) : setMedia(movie);
+  }, [movies, params, getMovieById, isLoading]);
 
   return (
     <>
-      {media.id ? (
+      {isLoading ? (
+        <S.Paragraph>
+          Loading... <Link to="/"> Click here to go home</Link>
+        </S.Paragraph>
+      ) : (
         <>
           <S.DetailHead background={media?.poster_path || media?.backdrop_path}>
             <S.GoBack>
@@ -111,10 +115,6 @@ export default function Detail({ match: { params } }) {
             vote_count={media.vote_count}
           />
         </>
-      ) : (
-        <S.Paragraph>
-          There is no movie with Id {params.id}.<Link to="/"> Click here to go home</Link>
-        </S.Paragraph>
       )}
     </>
   );

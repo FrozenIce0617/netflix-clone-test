@@ -20,20 +20,30 @@ S.Wrapper = styled.div`
 
 export default function Home() {
   const [appState] = useApp();
-  const { updateMovies, movies } = appState;
+  const { updateMovies, movies, isLoading } = appState;
 
   useEffect(() => {
-    movies.length < 2 && updateMovies();
-  }, [movies, updateMovies]);
+    if (!isLoading && movies?.length < 2) {
+      updateMovies()
+    }
+  }, [movies, updateMovies, isLoading]);
 
   return (
     <>
-      <S.Heading>Popular Movies</S.Heading>
-      <S.Wrapper>
-        {movies.map((movie) => (
-          <ThumbsCard key={movie.id} {...{ movie }} />
-        ))}
-      </S.Wrapper>
+      {isLoading ? (
+        <>
+          <S.Heading>Loading...</S.Heading>
+        </>
+      ) : (
+        <>
+          <S.Heading>Popular Movies</S.Heading>
+          <S.Wrapper>
+            {movies.map((movie) => (
+              <ThumbsCard key={movie.id} {...{ movie }} />
+            ))}
+          </S.Wrapper>
+        </>
+      )}
     </>
   );
 }
