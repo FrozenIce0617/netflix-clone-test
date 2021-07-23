@@ -12,14 +12,16 @@ This is a simple Netflix Clone app. I tried to build this app from scratch witho
 - Responsive for mobile, destkop
   
 ## Topic
-- My own context for managing global state without redux
+- My own light version of redux for managing global state without redux
 - TMDB API. (OMDB API has more information, but TMDB API generally better to work with) 
 - Styled components without any CSS framework
+- Unit test for context hooks
 
 ## Dependencies
 - react 17.0.2
 - react-router 5.2.0
 - styled-components 5.3.0
+- @testing-library/react 11.1.0
 
 ## How to use
 1. Clone the repo in your local
@@ -34,6 +36,11 @@ This is a simple Netflix Clone app. I tried to build this app from scratch witho
     ```
     ```
     yarn start
+    ```
+
+3. Run to uni test
+    ```
+    yarn test
     ```
 
 ## [Demo](https://netflix-react-test-07.netlify.app/)
