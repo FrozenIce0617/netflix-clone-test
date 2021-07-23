@@ -16,6 +16,7 @@ function IconStar(props) {
   return (
     // eslint-disable-next-line react/jsx-pascal-case
     <S.svg
+      data-testid="icon-star"
       viewBox="0 0 1000 1000"
       width="1.8rem"
       height="1.8rem"

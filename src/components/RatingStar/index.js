@@ -59,7 +59,7 @@ export default function RatingStar({ rating, vote_count }) {
             <IconStar />
           </S.FrontDiv>
         </S.BackStarsDiv>
-        <S.RatingSpan>
+        <S.RatingSpan data-testid="vote-count">
           {rate || "N/A"} / {vote_count}
         </S.RatingSpan>
       </S.WrapperDiv>

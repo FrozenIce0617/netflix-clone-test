@@ -57,11 +57,12 @@ S.Title = styled.p`
 const ThumbsCard = ({ movie }) => {
   return (
     <S.Card
+      data-testid="thumbs-card"
       to={`/movie/${movie.id}`}
       name={movie.original_title}
       bg={movie.poster_path || movie.backdrop_path}
     >
-      <S.Title>{movie.original_title}</S.Title>
+      <S.Title data-testid="thumbs-card-title">{movie.original_title}</S.Title>
     </S.Card>
   );
 };

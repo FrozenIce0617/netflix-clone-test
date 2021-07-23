@@ -92,13 +92,13 @@ export default function Detail({ match: { params } }) {
 
   React.useEffect(() => {
     const movie = movies.find((item) => item.id?.toString() === params?.id);
-    !movie && !isLoading ? getMovieById(params.id) : setMedia(movie);
+    !movie && !isLoading ? getMovieById(params?.id) : setMedia(movie);
   }, [movies, params, getMovieById, isLoading]);
 
   return (
     <>
       {isLoading ? (
-        <S.Paragraph>
+        <S.Paragraph data-testid="detail-loading-status">
           Loading... <Link to="/"> Click here to go home</Link>
         </S.Paragraph>
       ) : (
@@ -108,11 +108,11 @@ export default function Detail({ match: { params } }) {
               <Link to="/"> Go to Home</Link>
             </S.GoBack>
           </S.DetailHead>
-          <S.Title>{media.title || media.name}</S.Title>
-          <S.Paragraph>{media.overview}</S.Paragraph>
+          <S.Title data-testid="detail-title">{media?.title || media?.name}</S.Title>
+          <S.Paragraph>{media?.overview}</S.Paragraph>
           <RatingStar
-            rating={media.vote_average}
-            vote_count={media.vote_count}
+            rating={media?.vote_average}
+            vote_count={media?.vote_count}
           />
         </>
       )}

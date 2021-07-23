@@ -32,14 +32,14 @@ export default function Home() {
     <>
       {isLoading ? (
         <>
-          <S.Heading>Loading...</S.Heading>
+          <S.Heading data-testid="home-header">Loading...</S.Heading>
         </>
       ) : (
         <>
-          <S.Heading>Popular Movies</S.Heading>
-          <S.Wrapper>
+          <S.Heading data-testid="home-header">Popular Movies</S.Heading>
+          <S.Wrapper data-testid="home-movie-list">
             {movies.map((movie) => (
-              <ThumbsCard key={movie.id} {...{ movie }} />
+              <ThumbsCard data-testid={`movie-item-${movie.id}`} key={movie.id} {...{ movie }} />
             ))}
           </S.Wrapper>
         </>
