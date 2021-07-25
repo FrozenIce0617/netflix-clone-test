@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { TMDB_BASE_IMG_URL } from "../../config";
 import { Link } from "react-router-dom";
@@ -85,15 +85,36 @@ S.GoBack = styled.div`
   }
 `;
 
+S.CommentWrapper = styled.div`
+  padding: 1em;
+  color: #fff;
+  font-size: 1.6rem;
+`;
+
+S.CommentItem = styled.div`
+  padding: 0.5em;
+`;
+
+S.CommentInput = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export default function Detail({ match: { params } }) {
   const [media, setMedia] = React.useState({});
   const [appState] = useApp();
-  const { getMovieById, movies, isLoading } = appState;
+  const { getMovieById, movies, isLoading, addComment } = appState;
+  const [userComment, setUserComment] = useState("");
 
   React.useEffect(() => {
     const movie = movies.find((item) => item.id?.toString() === params?.id);
     !movie && !isLoading ? getMovieById(params?.id) : setMedia(movie);
   }, [movies, params, getMovieById, isLoading]);
+
+  const handleComment = () => {
+    console.log("Comment: ", userComment);
+    addComment(media.id, userComment);
+  };
 
   return (
     <>
@@ -108,12 +129,33 @@ export default function Detail({ match: { params } }) {
               <Link to="/"> Go to Home</Link>
             </S.GoBack>
           </S.DetailHead>
-          <S.Title data-testid="detail-title">{media?.title || media?.name}</S.Title>
+          <S.Title data-testid="detail-title">
+            {media?.title || media?.name}
+          </S.Title>
           <S.Paragraph>{media?.overview}</S.Paragraph>
           <RatingStar
             rating={media?.vote_average}
             vote_count={media?.vote_count}
           />
+
+          <S.CommentWrapper>
+            <div>Comments: </div>
+            {media?.comments?.map((comment) => (
+              <S.CommentItem>{comment}</S.CommentItem>
+            ))}
+          </S.CommentWrapper>
+
+          <S.CommentInput>
+            <div style={{ width: "80%" }}>
+              <textarea
+                style={{ width: "100%" }}
+                rows="5"
+                onChange={(e) => setUserComment(e.target.value)}
+                placeholder="comment"
+              />
+              <button onClick={handleComment}>Add Comment</button>
+            </div>
+          </S.CommentInput>
         </>
       )}
     </>

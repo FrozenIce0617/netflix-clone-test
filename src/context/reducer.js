@@ -6,7 +6,10 @@ export const initialState = {
 function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case "UPDATE_MOVIE_LIST": {
-      const newMovies = action.movies.filter(newMovie => !state.movies.some(prevMovie => prevMovie.id === newMovie.id))
+      const newMovies = action.movies.filter(
+        (newMovie) =>
+          !state.movies.some((prevMovie) => prevMovie.id === newMovie.id)
+      );
 
       return {
         ...state,
@@ -30,6 +33,24 @@ function reducer(state = initialState, action = {}) {
       return {
         ...state,
         isLoading: action.isLoading,
+      };
+    }
+
+    case "ADD_COMMENT": {
+      const { movieId, comment } = action.payload;
+      const movies = state.movies.map(movie => {
+        if (movie.id === movieId) {
+          let comments = movie.comments || []
+          comments = [...comments, comment]
+          movie.comments = comments
+          return movie
+        }
+        return movie
+      })
+      
+      return {
+        ...state,
+        movies: movies
       };
     }
 

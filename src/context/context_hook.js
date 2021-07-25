@@ -45,12 +45,23 @@ function useApp() {
       });
   };
 
+  const addComment = (id, comment) => {
+    appDispatch({
+      type: "ADD_COMMENT",
+      payload: {
+        movieId: id,
+        comment: comment,
+      },
+    })
+  }
+
   const initialData = {
     movies: [],
     isLoading: false,
     setLoadingStatus,
     updateMovies,
     getMovieById,
+    addComment,
   };
 
   const appState = useAppState(initialData);
